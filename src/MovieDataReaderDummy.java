@@ -65,8 +65,96 @@ public class MovieDataReaderDummy implements MovieDataReaderInterface {
             }
             
         });
-        // TODO: Fixme! Add two more example movies to the list before returning it (could be
-        //       ficticious ones).
+        movies.add(new MovieInterface() {
+
+            @Override
+            public String getTitle() {
+                return "Apple Tree";
+            }
+
+            @Override
+            public Integer getYear() {
+                return 2020;
+            }
+
+            @Override
+            public List<String> getGenres() {
+                return Arrays.asList(new String[] { "Comedy", "Fun" });
+            }
+
+            @Override
+            public String getDirector() {
+                return "Jacky Bai";
+            }
+
+            @Override
+            public String getDescription() {
+                return "A fake movie!";
+            }
+
+            @Override
+            public Float getAvgVote() {
+                return 9.9f;
+            }
+
+            @Override
+            public int compareTo(MovieInterface otherMovie) {
+                if (this.getTitle().equals(otherMovie.getTitle())) {
+                    return 0;
+                    // sort by rating
+                } else if (this.getAvgVote() < otherMovie.getAvgVote()) {
+                    return +1;
+                } else {
+                    return -1;
+                }
+            }
+
+        });
+        movies.add(new MovieInterface() {
+
+            @Override
+            public String getTitle() {
+                return "Blue Sky";
+            }
+
+            @Override
+            public Integer getYear() {
+                return 2222;
+            }
+
+            @Override
+            public List<String> getGenres() {
+                return Arrays.asList(new String[] { "Science", "Robotics" });
+            }
+
+            @Override
+            public String getDirector() {
+                return "Tomas";
+            }
+
+            @Override
+            public String getDescription() {
+                return "Another fake movie.";
+            }
+
+            @Override
+            public Float getAvgVote() {
+                return 1.1f;
+            }
+
+            @Override
+            public int compareTo(MovieInterface otherMovie) {
+                if (this.getTitle().equals(otherMovie.getTitle())) {
+                    return 0;
+                    // sort by rating
+                } else if (this.getAvgVote() < otherMovie.getAvgVote()) {
+                    return +1;
+                } else {
+                    return -1;
+                }
+            }
+
+        });
         return movies;
     }
    

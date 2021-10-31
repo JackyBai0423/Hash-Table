@@ -1,4 +1,12 @@
-import java.io.StringReader;
+// --== CS400 File Header Information ==--
+// Name: Jacky Bai
+// Email: bai59@wisc.edu
+// Team: red
+// Group: AC
+// TA: Mu
+// Lecturer: Florian Heimerl
+// Notes to Grader: None
+import java.io.*;
 
 /**
  * This class contains a set of tests for the back end of the Movie Mapper project.
@@ -32,10 +40,10 @@ public class TestBackend {
 		} else {
 			System.out.println("Test remove rating: FAILED");
 		}
-		if(this.testRemoveGenre()) {
-			System.out.println("Test remove genre: PASSED");
+		if(this.testRemoveAddGenre()) {
+			System.out.println("Test remove and add genre: PASSED");
 		} else {
-			System.out.println("Test remove genre: FAILED");
+			System.out.println("Test remove and add genre: FAILED");
 		}
 	}
 	
@@ -49,13 +57,8 @@ public class TestBackend {
 	public boolean testInitialNumberOfMovies() {
 		try {
 			// instantiate once BackendInterface is implemented
-			BackendInterface backendToTest = new Backend(new StringReader(
-					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
-					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
-					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			));
-			if (backendToTest.getNumberOfMovies() == 0) {
+			BackendInterface backendToTest = new Backend(new BufferedReader(new FileReader("src/movies.csv")));
+			if (backendToTest.getNumberOfMovies() == 231) {
 				// test passed
 				return true;
 			} else {
@@ -67,6 +70,7 @@ public class TestBackend {
 			// test failed
 			return false;
 		}
+
 	}
 	
 	/**
@@ -78,14 +82,8 @@ public class TestBackend {
 	public boolean testGetAllGenres() {
 		try {
 			// instantiate once BackendInterface is implemented
-			BackendInterface backendToTest = new Backend(new StringReader(
-					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
-					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
-					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			));
-			if (backendToTest.getAllGenres().size() == 5
-					&& backendToTest.getAllGenres().contains("Horror")
+			BackendInterface backendToTest = new Backend(new BufferedReader(new FileReader("src/movies.csv")));
+			if (backendToTest.getAllGenres().contains("Horror")
 					&& backendToTest.getAllGenres().contains("Action")
 					&& backendToTest.getAllGenres().contains("Comedy")
 					&& backendToTest.getAllGenres().contains("Musical")
@@ -113,13 +111,8 @@ public class TestBackend {
 	public boolean testGetThreeMoviesInitial() {
 		try {
 			// instantiate once BackendInterface is implemented
-			BackendInterface backendToTest = new Backend(new StringReader(
-					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
-					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
-					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			));
-			if (backendToTest.getThreeMovies(0).size() == 0) {
+			BackendInterface backendToTest = new Backend(new BufferedReader(new FileReader("src/movies.csv")));
+			if (backendToTest.getThreeMovies(0).size() == 3) {
 				// test passed
 				return true;
 			} else {
@@ -132,18 +125,15 @@ public class TestBackend {
 			return false;
 		}
 	}
-	
-	// TODO: Back End Developer, add at least 2 more tests
 
+	/**
+	 * test the functionality of remove average rating.
+	 * @return true or false
+	 */
 	public boolean testRemoveAverageRating(){
 		try {
 			// instantiate once BackendInterface is implemented
-			BackendInterface backendToTest = new Backend(new StringReader(
-					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
-					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
-					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			));
+			BackendInterface backendToTest = new Backend(new BufferedReader(new FileReader("src/movies.csv")));
 			backendToTest.removeAvgRating("3");
 			if(!backendToTest.getAvgRatings().contains("3")) return true;
 			else return false;
@@ -154,18 +144,19 @@ public class TestBackend {
 		}
 	}
 
-	public boolean testRemoveGenre(){
+	/**
+	 * test the functionality of remove and add genre
+	 * @return true or false.
+	 */
+	public boolean testRemoveAddGenre(){
 		try {
-			// instantiate once BackendInterface is implemented
-			BackendInterface backendToTest = new Backend(new StringReader(
-					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
-					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
-					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			));
+			// instantiate once BackendInterface is implemented\
+			BackendInterface backendToTest = new Backend(new BufferedReader(new FileReader("src/movies.csv")));
+			backendToTest.addGenre("Horror");
+			if(backendToTest.getAllGenres().contains("Horror")) return true;
 			backendToTest.removeGenre("Horror");
 			if(!backendToTest.getAllGenres().contains("Horror")) return true;
-			else return false;
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			// test failed
